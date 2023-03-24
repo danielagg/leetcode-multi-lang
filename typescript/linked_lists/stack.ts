@@ -1,36 +1,32 @@
 class StackNode<T> {
   value: T;
-  prev: StackNode<T> | null;
+  next: StackNode<T> | null;
 
   constructor(value: T) {
     this.value = value;
-    this.prev = null;
+    this.next = null;
   }
 }
 
 class Stack<T> {
-  tail: StackNode<T> | null;
+  head: StackNode<T> | null;
 
   constructor() {
-    this.tail = null;
+    this.head = null;
   }
 
   push(value: T) {
-    const newNode: StackNode<T> = { value, prev: null };
+    const newNode: StackNode<T> = { value, next: null };
 
-    if (!this.tail) {
-      this.tail = newNode;
-    } else {
-      newNode.prev = this.tail;
-      this.tail = newNode;
-    }
+    newNode.next = this.head;
+    this.head = newNode;
   }
 
   pop() {
-    const value = this.tail!.value;
-    this.tail = this.tail!.prev;
+    const currHead = this.head;
+    this.head = currHead!.next;
 
-    return value;
+    return currHead!.value;
   }
 }
 
