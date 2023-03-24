@@ -38,7 +38,7 @@ class QueueNode<T> {
   }
 }
 
-const execute = () => {
+const executeQueue = () => {
   const myQueue = new Queue();
   myQueue.enqueue("test");
   myQueue.enqueue("test2");
@@ -49,4 +49,4 @@ const execute = () => {
   console.log(myQueue.dequeue());
 };
 
-execute();
+executeQueue();
