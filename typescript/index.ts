@@ -88,3 +88,24 @@ function groupAnagrams(strs: string[]): string[][] {
 
   return Array.from(anagrams).map((x) => x[1]);
 }
+
+// K number of most frequent element
+function topKFrequent(nums: number[], k: number): number[] {
+  const occurances = new Map<number, number>(); // Map<originalNumber, numberOfOccurances>
+  for (let i = 0; i < nums.length; i++) {
+    const curr = nums[i];
+    if (occurances.has(curr)) {
+      const prev = occurances.get(curr);
+      occurances.set(curr, 1 + prev!);
+    } else {
+      occurances.set(curr, 1);
+    }
+  }
+
+  const asArray = Array.from(occurances);
+  asArray.sort((a, b) => {
+    return b[1] - a[1];
+  });
+
+  return asArray.slice(0, k).map((x) => x[0]);
+}
