@@ -32,8 +32,6 @@ function twoSum2(numbers: number[], target: number): number[] {
   return [];
 }
 
-// two-sum 3
-
 // move zeros
 function moveZeroes(nums: number[]): void {
   let left = 0;
@@ -52,3 +50,41 @@ function moveZeroes(nums: number[]): void {
 }
 
 // swap numbers in place
+function swapNumbers(): void {
+  let a = 1;
+  let b = 2;
+
+  [b, a] = [a, b];
+}
+
+// contains duplicate
+function containsDuplicate(nums: number[]): boolean {
+  const numsAsSet = new Set(nums);
+  return nums.length != numsAsSet.size;
+}
+
+// is anagram
+function isAnagram(s: string, t: string): boolean {
+  // const sortedS = Array.from(s).sort();
+  // const sortedT = Array.from(t).sort();
+
+  // return sortedS.join() == sortedT.join();
+  return [...s].sort().join() == [...t].sort().join();
+}
+
+// group anagrams
+function groupAnagrams(strs: string[]): string[][] {
+  const anagrams = new Map<string, string[]>(); // Map<sorted, originals[]>
+
+  for (let current of strs) {
+    const currentSorted = [...current].sort().join();
+    if (anagrams.has(currentSorted)) {
+      const prev = anagrams.get(currentSorted)!;
+      anagrams.set(currentSorted, [...prev, current]);
+    } else {
+      anagrams.set(currentSorted, [current]);
+    }
+  }
+
+  return Array.from(anagrams).map((x) => x[1]);
+}
