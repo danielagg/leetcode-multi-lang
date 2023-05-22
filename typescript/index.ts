@@ -109,3 +109,10 @@ function topKFrequent(nums: number[], k: number): number[] {
 
   return asArray.slice(0, k).map((x) => x[0]);
 }
+
+// Product of Array Except Self
+function productExceptSelf(nums: number[]): number[] {
+  return [];
+}
+
+// productExceptSelf([1, 2, 3, 4]);
