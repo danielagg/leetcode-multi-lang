@@ -110,9 +110,18 @@ function topKFrequent(nums: number[], k: number): number[] {
   return asArray.slice(0, k).map((x) => x[0]);
 }
 
+// valid palindrome
+function isPalindrome(s: string): boolean {
+  const filteredText = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+  const filteredTextAsArray = [...filteredText];
+  filteredTextAsArray.reverse();
+  return filteredText == filteredTextAsArray.join("");
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
 }
 
 // productExceptSelf([1, 2, 3, 4]);
+isPalindrome("A man, a plan, a canal: Panama");
