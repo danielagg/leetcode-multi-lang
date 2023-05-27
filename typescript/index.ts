@@ -32,6 +32,42 @@ function twoSum2(numbers: number[], target: number): number[] {
   return [];
 }
 
+// two-sum 3
+function threeSum(nums: number[]): number[][] {
+  const distinctNums = [...new Set(nums)];
+  distinctNums.sort();
+
+  const result = new Set();
+
+  for (let i = 0; i < distinctNums.length; i++) {
+    let num1 = distinctNums[i];
+    let left = i == 0 ? 1 : 0;
+    let right = distinctNums.length - 1;
+
+    while (left < right) {
+      const num2 = distinctNums[left];
+      const num3 = distinctNums[right];
+      const curr = num1 + num2 + num3;
+
+      if (curr == 0) {
+        const entry = [num1, num2, num3];
+        entry.sort();
+        if (!result.has(entry)) result.add(entry);
+        break;
+      } else if (curr < 0) {
+        left += 1;
+      } else {
+        right -= 1;
+      }
+    }
+  }
+  console.log(result);
+
+  return [];
+}
+
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
 // move zeros
 function moveZeroes(nums: number[]): void {
   let left = 0;
@@ -118,10 +154,29 @@ function isPalindrome(s: string): boolean {
   return filteredText == filteredTextAsArray.join("");
 }
 
+// Best Time to Buy and Sell Stock
+function maxProfit(prices: number[]): number {
+  let left = 0;
+  let right = 1;
+  let maxProfit = 0;
+
+  while (right < prices.length) {
+    if (prices[left] < prices[right]) {
+      // profit
+      let profit = prices[right] - prices[left];
+      maxProfit = maxProfit < profit ? profit : maxProfit;
+    } else {
+      left = right;
+    }
+    right += 1;
+  }
+
+  return maxProfit;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
 }
 
-// productExceptSelf([1, 2, 3, 4]);
-isPalindrome("A man, a plan, a canal: Panama");
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
