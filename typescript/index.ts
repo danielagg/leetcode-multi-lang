@@ -174,9 +174,7 @@ function maxProfit(prices: number[]): number {
 function isParenthesisValid(s: string): boolean {
   let stack: string[] = [];
 
-  for (let i = 0; i < s.length; i++) {
-    const curr = s[i];
-
+  for (let curr of s.split("")) {
     if (curr == "(" || curr == "[" || curr == "{") {
       stack.push(curr);
       continue;
@@ -184,29 +182,11 @@ function isParenthesisValid(s: string): boolean {
 
     if (stack.length == 0) return false;
 
-    if (curr == ")") {
-      if (stack[stack.length - 1] == "(") {
-        stack.pop();
-      } else {
-        return false;
-      }
-    }
+    const last = stack.pop()!;
 
-    if (curr == "]") {
-      if (stack[stack.length - 1] == "[") {
-        stack.pop();
-      } else {
-        return false;
-      }
-    }
-
-    if (curr == "}") {
-      if (stack[stack.length - 1] == "{") {
-        stack.pop();
-      } else {
-        return false;
-      }
-    }
+    if (curr == ")" && last !== "(") return false;
+    if (curr == "]" && last !== "[") return false;
+    if (curr == "}" && last !== "{") return false;
   }
 
   return stack.length == 0;
@@ -216,5 +196,3 @@ function isParenthesisValid(s: string): boolean {
 function productExceptSelf(nums: number[]): number[] {
   return [];
 }
-
-console.log(isParenthesisValid("([]){}"));
