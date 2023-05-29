@@ -192,6 +192,30 @@ function isParenthesisValid(s: string): boolean {
   return stack.length == 0;
 }
 
+class MinStack {
+  values: number[];
+
+  constructor() {
+    this.values = [];
+  }
+
+  push(val: number): void {
+    this.values.push(val);
+  }
+
+  pop(): void {
+    this.values.pop();
+  }
+
+  top(): number {
+    return this.values.pop()!;
+  }
+
+  getMin(): number {
+    return Math.min(...this.values);
+  }
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
