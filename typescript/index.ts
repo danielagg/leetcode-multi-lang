@@ -61,12 +61,9 @@ function threeSum(nums: number[]): number[][] {
       }
     }
   }
-  console.log(result);
 
   return [];
 }
-
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
 
 // move zeros
 function moveZeroes(nums: number[]): void {
@@ -174,9 +171,50 @@ function maxProfit(prices: number[]): number {
   return maxProfit;
 }
 
+function isParenthesisValid(s: string): boolean {
+  let stack: string[] = [];
+
+  for (let i = 0; i < s.length; i++) {
+    const curr = s[i];
+
+    if (curr == "(" || curr == "[" || curr == "{") {
+      stack.push(curr);
+      continue;
+    }
+
+    if (stack.length == 0) return false;
+
+    if (curr == ")") {
+      if (stack[stack.length - 1] == "(") {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+
+    if (curr == "]") {
+      if (stack[stack.length - 1] == "[") {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+
+    if (curr == "}") {
+      if (stack[stack.length - 1] == "{") {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+
+  return stack.length == 0;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
 }
 
-console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+console.log(isParenthesisValid("([]){}"));
