@@ -216,6 +216,62 @@ class MinStack {
   }
 }
 
+function evaluateReversePolishNotation(tokens: string[]): number {
+  const stack: string[] = [];
+  const operands = ["+", "-", "*", "/"];
+
+  for (let i = 0; i < tokens.length; i++) {
+    const curr = tokens[i];
+
+    if (operands.indexOf(curr) == -1) {
+      stack.push(curr);
+      console.log(stack);
+      continue;
+    }
+
+    const num1 = stack.pop();
+    const num2 = stack.pop();
+
+    switch (curr) {
+      case "+":
+        stack.push((Number(num2) + Number(num1)).toString());
+        break;
+      case "-":
+        stack.push((Number(num2) - Number(num1)).toString());
+        break;
+      case "*":
+        stack.push((Number(num2) * Number(num1)).toString());
+        break;
+      case "/":
+        stack.push(Math.floor(Number(num2) / Number(num1)).toString());
+        break;
+    }
+    console.log(stack);
+  }
+
+  return Number(stack.pop()!);
+}
+
+console.log(
+  evaluateReversePolishNotation([
+    "10",
+    "6",
+    "9",
+    "3",
+    "+",
+    "-11",
+    "*",
+    "/",
+    "*",
+    "17",
+    "+",
+    "5",
+    "+",
+  ])
+);
+
+// ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
