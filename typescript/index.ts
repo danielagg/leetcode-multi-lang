@@ -250,6 +250,34 @@ function evaluateReversePolishNotation(tokens: string[]): number {
   return stack.pop()!;
 }
 
+function generateParenthesis(n: number): string[] {
+  const result: string[] = [];
+  let currentEntry: string[] = [];
+
+  const backTrack = (numberOfOpen: number, numberOfClosed: number) => {
+    if (numberOfOpen === numberOfClosed && numberOfOpen === n) {
+      result.push(currentEntry.join(""));
+      return;
+    }
+
+    if (numberOfOpen < n) {
+      currentEntry.push("(");
+      backTrack(numberOfOpen + 1, numberOfClosed);
+      currentEntry.pop();
+    }
+
+    if (numberOfClosed < numberOfOpen) {
+      currentEntry.push(")");
+      backTrack(numberOfOpen, numberOfClosed + 1);
+      currentEntry.pop();
+    }
+  };
+
+  backTrack(0, 0);
+
+  return result;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
