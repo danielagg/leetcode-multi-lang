@@ -278,6 +278,47 @@ function generateParenthesis(n: number): string[] {
   return result;
 }
 
+function dailyTemperatures(temperatures: number[]): number[] {
+  const result: { index: number; waitDays: number }[] = [];
+  const stack: { index: number; temperature: number }[] = [
+    { index: 0, temperature: temperatures[0] },
+  ];
+
+  for (let i = 1; i < temperatures.length; i++) {
+    const curr = temperatures[i];
+
+    if (stack.length && stack[stack.length - 1].temperature < curr) {
+      const resToAdd = stack.pop()!;
+      result.push({ index: resToAdd.index, waitDays: i - resToAdd.index });
+    } else {
+      stack.push({ index: i, temperature: curr });
+    }
+
+    console.log(stack);
+  }
+
+  return [];
+}
+
+function lengthOfLongestSubstring(s: string): number {
+  let alreadyFound = new Set<string>();
+  let left = 0;
+  let result = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    let curr = s[right];
+    while (alreadyFound.has(curr)) {
+      alreadyFound.delete(s[left]);
+      left += 1;
+    }
+    alreadyFound.add(curr);
+
+    result = result > alreadyFound.size ? result : alreadyFound.size;
+  }
+
+  return result;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
