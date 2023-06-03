@@ -319,6 +319,15 @@ function lengthOfLongestSubstring(s: string): number {
   return result;
 }
 
+function reverseStringRecursively(s: string): string {
+  const rev = (curr: string): string => {
+    if (curr == "") return "";
+    return curr[curr.length - 1] + rev(curr.slice(0, curr.length - 1));
+  };
+
+  return rev(s);
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
