@@ -1,6 +1,3 @@
-#  two-sum
-
-
 def twoSum(nums, target):
     hashMap = {}
 
@@ -13,4 +10,19 @@ def twoSum(nums, target):
         hashMap[nums[i]] = i
     return []
 
-print(twoSum([1, 2, 3, 4, 5, 6, 7], 9))
+
+def twoSum2(numbers, target):
+    left, right = 0, len(numbers) - 1
+
+    while(left < right):
+        curr = numbers[left] + numbers[right]
+
+        if curr == target:
+            return [left+1, right+1]
+        
+        if curr < target:
+            left += 1
+        else:
+            right -= 1
+    
+    return []
