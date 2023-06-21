@@ -347,6 +347,27 @@ function binarySearch(nums: number[], target: number): number {
   return -1;
 }
 
+class ListNode {
+  val: number;
+  next: ListNode | null;
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+}
+
+function reverseList(head: ListNode | null): ListNode | null {
+  let newHead: ListNode | null = head;
+  let newNext: ListNode | null = null;
+
+  while (newHead != null) {
+    newNext = new ListNode(newHead.val, newNext);
+    newHead = newHead.next;
+  }
+
+  return newNext;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
