@@ -368,6 +368,48 @@ function reverseList(head: ListNode | null): ListNode | null {
   return newNext;
 }
 
+function searchMatrix(matrix: number[][], target: number): boolean {
+  let top = 0;
+  let bottom = matrix.length - 1;
+  let foundSection = -1;
+
+  while (top <= bottom && foundSection == -1) {
+    let mid = Math.floor((bottom + top) / 2);
+
+    let left = matrix[mid][0];
+    let right = matrix[mid][matrix[mid].length - 1];
+
+    if (target < left) {
+      bottom = mid - 1;
+    } else if (target > right) {
+      top = mid + 1;
+    } else {
+      foundSection = mid;
+    }
+  }
+
+  if (foundSection == -1) return false;
+
+  const newMatrix = matrix[foundSection];
+
+  let left = 0;
+  let right = newMatrix.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (newMatrix[mid] == target) return true;
+
+    if (newMatrix[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  return false;
+}
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
