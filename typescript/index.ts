@@ -412,6 +412,36 @@ function mergeTwoLists(
   return resultHead;
 }
 
+function sortList(head: ListNode | null): ListNode | null {
+  if (head == null) return head;
+
+  const nums: number[] = [];
+
+  while (head != null) {
+    nums.push(head!.val);
+    head = head!.next;
+  }
+
+  nums.sort((a, b) => a - b);
+
+  let result = new ListNode(nums.shift(), null);
+  const resultHead = result;
+
+  for (let i = 0; i < nums.length; i++) {
+    result.next = new ListNode(nums[i], null);
+    result = result.next;
+  }
+
+  return resultHead;
+}
+
+sortList(
+  new ListNode(
+    4,
+    new ListNode(2, new ListNode(1, new ListNode(3, new ListNode(11, null))))
+  )
+);
+
 function searchMatrix(matrix: number[][], target: number): boolean {
   let top = 0;
   let bottom = matrix.length - 1;
