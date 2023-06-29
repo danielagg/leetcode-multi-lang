@@ -412,11 +412,6 @@ function mergeTwoLists(
   return resultHead;
 }
 
-const left = new ListNode(1, new ListNode(2, new ListNode(4, null)));
-const right = new ListNode(1, new ListNode(3, new ListNode(4, null)));
-
-mergeTwoLists(left, right);
-
 function searchMatrix(matrix: number[][], target: number): boolean {
   let top = 0;
   let bottom = matrix.length - 1;
@@ -457,6 +452,11 @@ function searchMatrix(matrix: number[][], target: number): boolean {
   }
 
   return false;
+}
+
+function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+  nums1 = [...nums1.slice(0, m), ...nums2.slice(0, n)];
+  nums1.sort();
 }
 
 // Product of Array Except Self
