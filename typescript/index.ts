@@ -436,42 +436,27 @@ function sortList(head: ListNode | null): ListNode | null {
 }
 
 function reorderList(head: ListNode | null): void {
-  const inOrder: number[] = [];
-  const reversed: number[] = [];
-
-  let i = 0;
+  const values: number[] = [];
 
   while (head != null) {
-    if (i % 2 == 0) {
-      inOrder.push(head.val);
-    } else {
-      reversed.push(head.val);
-    }
-
-    i++;
+    values.push(head.val);
     head = head.next;
   }
 
-  reversed.reverse();
-  let count = inOrder.length + reversed.length;
+  const firstPart = values.slice(0, values.length / 2);
+  const secondPart = values.slice(values.length / 2);
 
-  let result: ListNode | null = null;
+  secondPart.reverse();
 
-  console.log(inOrder);
-  console.log(reversed);
-
-  for (let i = 0; i < count; i++) {
-    if (i % 2 == 0) {
-      console.log(inOrder.shift());
-      // result = new ListNode(inOrder.shift(), null);
-    } else {
-      console.log(reversed.shift());
-      // result = new ListNode(reversed.shift(), null);
-    }
-    // result = result.next;
+  let i = 0;
+  let result: ListNode | null = new ListNode(firstPart.shift(), null);
+  head = result;
+  while (firstPart.length > 0 || secondPart.length > 0) {
+    const newVal = i % 2 == 0 ? secondPart.shift() : firstPart.shift();
+    result.next = new ListNode(newVal, null);
+    i++;
+    result = result?.next;
   }
-
-  // console.log(result);
 }
 
 reorderList(
