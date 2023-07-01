@@ -435,11 +435,47 @@ function sortList(head: ListNode | null): ListNode | null {
   return resultHead;
 }
 
-sortList(
-  new ListNode(
-    4,
-    new ListNode(2, new ListNode(1, new ListNode(3, new ListNode(11, null))))
-  )
+function reorderList(head: ListNode | null): void {
+  const inOrder: number[] = [];
+  const reversed: number[] = [];
+
+  let i = 0;
+
+  while (head != null) {
+    if (i % 2 == 0) {
+      inOrder.push(head.val);
+    } else {
+      reversed.push(head.val);
+    }
+
+    i++;
+    head = head.next;
+  }
+
+  reversed.reverse();
+  let count = inOrder.length + reversed.length;
+
+  let result: ListNode | null = null;
+
+  console.log(inOrder);
+  console.log(reversed);
+
+  for (let i = 0; i < count; i++) {
+    if (i % 2 == 0) {
+      console.log(inOrder.shift());
+      // result = new ListNode(inOrder.shift(), null);
+    } else {
+      console.log(reversed.shift());
+      // result = new ListNode(reversed.shift(), null);
+    }
+    // result = result.next;
+  }
+
+  // console.log(result);
+}
+
+reorderList(
+  new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, null))))
 );
 
 function searchMatrix(matrix: number[][], target: number): boolean {
