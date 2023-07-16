@@ -463,6 +463,42 @@ reorderList(
   new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, null))))
 );
 
+function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+  if (head == null) return null;
+
+  const entries: number[] = [];
+
+  while (head != null) {
+    entries.push(head.val);
+    head = head.next;
+  }
+
+  const indexToRemove = entries.length - n;
+
+  const newArr = [
+    ...entries.slice(0, indexToRemove),
+    ...entries.slice(indexToRemove + 1),
+  ];
+
+  let resultHead = new ListNode(newArr.shift(), null);
+  let res = resultHead;
+
+  while (newArr.length > 0) {
+    resultHead.next = new ListNode(newArr.shift(), null);
+    resultHead = resultHead.next;
+  }
+
+  return res;
+}
+
+removeNthFromEnd(
+  new ListNode(
+    1,
+    new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null))))
+  ),
+  2
+);
+
 function searchMatrix(matrix: number[][], target: number): boolean {
   let top = 0;
   let bottom = matrix.length - 1;
