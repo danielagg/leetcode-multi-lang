@@ -159,7 +159,6 @@ function maxProfit(prices: number[]): number {
 
   while (right < prices.length) {
     if (prices[left] < prices[right]) {
-      // profit
       let profit = prices[right] - prices[left];
       maxProfit = maxProfit < profit ? profit : maxProfit;
     } else {
@@ -298,6 +297,38 @@ function dailyTemperatures(temperatures: number[]): number[] {
   }
 
   return [];
+}
+
+function dailyTemperatures2(temperatures: number[]): number[] {
+  let tempRes: { temperature: number; index: number; waitDay: number }[] = [];
+
+  for (let i = 0; i < temperatures.length; i++) {
+    tempRes.push({ temperature: temperatures[i], index: i, waitDay: 0 });
+
+    const currentTemperature = temperatures[i];
+    if (i > 0) {
+      const toAlign = tempRes
+        .filter((x) => x.waitDay == 0 && x.temperature < currentTemperature)
+        .map((x) => {
+          return {
+            temperature: x.temperature,
+            index: x.index,
+            waitDay: i - x.index,
+          };
+        });
+
+      const unTouched = tempRes.filter(
+        (x) => toAlign.map((xx) => xx.index).indexOf(x.index) == -1
+      );
+
+      if (toAlign.length > 0) {
+        tempRes = [...unTouched, ...toAlign];
+      }
+    }
+  }
+
+  tempRes.sort((a, b) => a.index - b.index);
+  return tempRes.map((x) => x.waitDay);
 }
 
 function lengthOfLongestSubstring(s: string): number {
@@ -466,29 +497,17 @@ reorderList(
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
   if (head == null) return null;
 
-  const entries: number[] = [];
+  // reverse first the linked list
+  let newHead: ListNode | null = head;
+  let newNext: ListNode | null = null;
 
-  while (head != null) {
-    entries.push(head.val);
-    head = head.next;
+  while (newHead != null) {
+    newNext = new ListNode(newHead.val, newNext);
+    newHead = newHead.next;
   }
 
-  const indexToRemove = entries.length - n;
-
-  const newArr = [
-    ...entries.slice(0, indexToRemove),
-    ...entries.slice(indexToRemove + 1),
-  ];
-
-  let resultHead = new ListNode(newArr.shift(), null);
-  let res = resultHead;
-
-  while (newArr.length > 0) {
-    resultHead.next = new ListNode(newArr.shift(), null);
-    resultHead = resultHead.next;
-  }
-
-  return res;
+  console.log(newNext);
+  return newNext;
 }
 
 removeNthFromEnd(
