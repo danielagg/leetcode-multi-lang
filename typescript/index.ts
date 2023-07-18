@@ -560,6 +560,30 @@ function searchMatrix(matrix: number[][], target: number): boolean {
   return false;
 }
 
+class TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+}
+
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (root == null) return null;
+
+  const tempLeft = root.left;
+  root.left = root.right;
+  root.right = tempLeft;
+
+  invertTree(root.left);
+  invertTree(root.right);
+
+  return root;
+}
+
 function merge(nums1: number[], m: number, nums2: number[], n: number): void {
   nums1 = [...nums1.slice(0, m), ...nums2.slice(0, n)];
   nums1.sort();
