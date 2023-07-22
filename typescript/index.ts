@@ -519,38 +519,32 @@ removeNthFromEnd(
 );
 
 function searchMatrix(matrix: number[][], target: number): boolean {
-  let top = 0;
-  let bottom = matrix.length - 1;
-  let foundSection = -1;
+  let targetEntry: number[] | null = null;
 
-  while (top <= bottom && foundSection == -1) {
-    let mid = Math.floor((bottom + top) / 2);
+  for (let index = 0; index < matrix.length; index++) {
+    const element = matrix[index];
+    const start = element[0];
+    const end = element[element.length - 1];
 
-    let left = matrix[mid][0];
-    let right = matrix[mid][matrix[mid].length - 1];
+    if (target == start) return true;
+    if (target == end) return true;
 
-    if (target < left) {
-      bottom = mid - 1;
-    } else if (target > right) {
-      top = mid + 1;
-    } else {
-      foundSection = mid;
+    if (target > start && target < end) {
+      targetEntry = element;
     }
   }
 
-  if (foundSection == -1) return false;
-
-  const newMatrix = matrix[foundSection];
+  if (!targetEntry) return false;
 
   let left = 0;
-  let right = newMatrix.length - 1;
+  let right = targetEntry.length - 1;
 
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
 
-    if (newMatrix[mid] == target) return true;
+    if (targetEntry[mid] == target) return true;
 
-    if (newMatrix[mid] < target) {
+    if (targetEntry[mid] < target) {
       left = mid + 1;
     } else {
       right = mid - 1;
@@ -559,6 +553,15 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 
   return false;
 }
+
+searchMatrix(
+  [
+    [1, 3, 5, 7],
+    [10, 11, 16, 20],
+    [23, 30, 34, 60],
+  ],
+  4
+);
 
 class TreeNode {
   val: number;
