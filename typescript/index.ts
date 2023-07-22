@@ -506,7 +506,6 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
     newHead = newHead.next;
   }
 
-  console.log(newNext);
   return newNext;
 }
 
