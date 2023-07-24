@@ -591,6 +591,30 @@ function merge(nums1: number[], m: number, nums2: number[], n: number): void {
   nums1.sort();
 }
 
+// backtracking
+function subsets(nums: number[]): number[][] {
+  const res: number[][] = [];
+
+  let currentSubset: number[] = [];
+  function dfs(index: number) {
+    if (index >= nums.length) {
+      res.push([...currentSubset]);
+      return;
+    }
+
+    currentSubset.push(nums[index]);
+    dfs(index + 1);
+
+    currentSubset.pop();
+    dfs(index + 1);
+  }
+
+  dfs(0);
+  return res;
+}
+
+subsets([1, 2, 3]);
+
 // Product of Array Except Self
 function productExceptSelf(nums: number[]): number[] {
   return [];
