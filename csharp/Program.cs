@@ -7,3 +7,4 @@ var misc = new Misc();
 misc.ExecuteAll();
 
 var arrays = new Arrays();
+arrays.ExecuteAll();
