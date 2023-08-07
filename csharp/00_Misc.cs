@@ -15,19 +15,16 @@ namespace csharp
         // For numbers that are multiples of both 3 and 5, print 'FizzBuzz'.
         private void FizzBuzz(int n)
         {
-            var result = Enumerable.Range(1, n).Select(i =>
+            var result = Enumerable.Range(1, n).Select(i => i switch
             {
-                return i switch
-                {
-                    var x when x % 3 == 0 && x % 5 == 0 => "FizzBuzz",
-                    var x when x % 3 == 0 => "Fizz",
-                    var x when x % 5 == 0 => "Buzz",
-                    var x => x.ToString()
-                };
+                var x when x % 3 == 0 && x % 5 == 0 => "FizzBuzz",
+                var x when x % 3 == 0 => "Fizz",
+                var x when x % 5 == 0 => "Buzz",
+                var x => x.ToString()
             });
 
-            foreach (var r in result)
-                Console.WriteLine(r);
+            // foreach (var r in result)
+            //     Console.WriteLine(r);
         }
     
     }
