@@ -3,5 +3,7 @@
 using System;
 using csharp;
 
+var misc = new Misc();
+misc.ExecuteAll();
+
 var arrays = new Arrays();
-Console.WriteLine(arrays.Sanity());
