@@ -10,6 +10,7 @@ namespace csharp
         {
             ContainsDuplicate(new[] { 1,2,3,1 });
             IsAnagram("anagram", "nagaram");
+            TwoSum(new[] {2, 7, 11, 15}, 9);
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -24,15 +25,32 @@ namespace csharp
         {
             if (s.Length != t.Length)
                 return false;
-
+            
             var asArrayS = s.ToCharArray();
             var asArrayT = t.ToCharArray();
             
             Array.Sort(asArrayS);
             Array.Sort(asArrayT);
-
+            
             var result = new string(asArrayS) == new string(asArrayT);
             return result;
+        }
+        
+        private int[] TwoSum(int[] nums, int target)
+        {
+            var dict = new Dictionary<int, int>(nums.Length); // initial capacity
+
+            for (var i = 0; i < nums.Length; i++)
+            {
+                var diff = target - nums[i];
+
+                if (dict.TryGetValue(diff, out var index))
+                    return new[] { index, i };
+
+                dict[nums[i]] = i;
+            }
+
+            throw new Exception();
         }
     }
 }
