@@ -12,6 +12,7 @@ namespace csharp
             IsAnagram("anagram", "nagaram");
             TwoSum(new[] {2, 7, 11, 15}, 9);
             GroupAnagrams(new[] {"eat", "tea", "tan", "ate", "nat", "bat"});
+            TopKFrequent(new[] {1, 1, 1, 2, 2, 3}, 2);
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -75,6 +76,13 @@ namespace csharp
                 .Select(x => x.Value)
                 .Select(x => (IList<string>)x)
                 .ToList();
+        }
+        
+        private int[] TopKFrequent(int[] nums, int k) {
+            var sorted = nums.GroupBy(x => x);
+            var result = sorted.OrderByDescending(x => x.Count()).Take(k);
+
+            return result.Select(r => r.Key).ToArray();
         }
     }
 }
