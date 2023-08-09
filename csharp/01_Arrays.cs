@@ -11,6 +11,7 @@ namespace csharp
             ContainsDuplicate(new[] { 1,2,3,1 });
             IsAnagram("anagram", "nagaram");
             TwoSum(new[] {2, 7, 11, 15}, 9);
+            GroupAnagrams(new[] {"eat", "tea", "tan", "ate", "nat", "bat"});
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -51,6 +52,29 @@ namespace csharp
             }
 
             throw new Exception();
+        }
+        
+        private IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            var result = new Dictionary<string, List<string>>();
+
+            foreach (var entry in strs)
+            {
+                var entryAsCharArray = entry.ToCharArray();
+                Array.Sort(entryAsCharArray);
+
+                var sortedEntry = new string(entryAsCharArray);
+                
+                if(result.ContainsKey(sortedEntry))
+                    result[sortedEntry].Add(entry);
+                else
+                    result.Add(sortedEntry, new[] { entry }.ToList());
+            }
+
+            return result
+                .Select(x => x.Value)
+                .Select(x => (IList<string>)x)
+                .ToList();
         }
     }
 }
