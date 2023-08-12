@@ -13,6 +13,7 @@ namespace csharp
             TwoSum(new[] {2, 7, 11, 15}, 9);
             GroupAnagrams(new[] {"eat", "tea", "tan", "ate", "nat", "bat"});
             TopKFrequent(new[] {1, 1, 1, 2, 2, 3}, 2);
+            ProductExceptSelf(new[] {1, 2, 3, 4});
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -78,11 +79,56 @@ namespace csharp
                 .ToList();
         }
         
-        private int[] TopKFrequent(int[] nums, int k) {
+        private int[] TopKFrequent(int[] nums, int k)
+        {
             var sorted = nums.GroupBy(x => x);
             var result = sorted.OrderByDescending(x => x.Count()).Take(k);
 
             return result.Select(r => r.Key).ToArray();
+        }
+        
+        public int[] ProductExceptSelf(int[] nums)
+        {
+            /*
+  1   2   3   4
+  **************
+- 1   2   6   24
+  24  24  12   4   -
+  
+  
+  24, 12, 8,   6  
+             */
+
+            var prevSums = new List<int>(nums.Length + 1);
+            prevSums.Add(1);
+
+            for (var i = 0; i < nums.Length; i++)
+            {
+                var curr = prevSums[i] * nums[i];
+                prevSums.Add(curr);
+            }
+            
+            var postSums = new List<int>(nums.Length + 1);
+            postSums.Add(1);
+
+            for (int i = nums.Length - 1; i >= 0; i--)
+            {
+                var curr = postSums[nums.Length - i - 1] * nums[i];
+                postSums.Add(curr);
+            }
+
+            postSums.Reverse();
+
+            var result = new List<int>();
+            for (var i = 0; i < nums.Length; i++)
+            {
+                var test1 = prevSums[i];
+                var test2 = postSums[i + 1];
+                
+                result.Add(test1 * test2);
+            }
+            
+            return result.ToArray();
         }
     }
 }
