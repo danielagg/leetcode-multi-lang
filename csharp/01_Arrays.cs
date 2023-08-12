@@ -14,6 +14,22 @@ namespace csharp
             GroupAnagrams(new[] {"eat", "tea", "tan", "ate", "nat", "bat"});
             TopKFrequent(new[] {1, 1, 1, 2, 2, 3}, 2);
             ProductExceptSelf(new[] {1, 2, 3, 4});
+
+            IsValidSudoku(new[]
+            {
+                new[] { '5','3','.','.','7','.','.','.','.' },
+                new[] { '6','.','.','1','9','5','.','.','.' },
+                new[] { '.','9','8','.','.','.','.','6','.' },
+                new[] { '8','.','.','.','6','.','.','.','3' },
+                new[] { '4','.','.','8','.','3','.','.','1' },
+                new[] { '7','.','.','.','2','.','.','.','6' },
+                new[] { '.','6','.','.','.','.','2','8','.' },
+                new[] { '.','.','.','4','1','9','.','.','5' },
+                new[] { '.','.','.','.','8','.','.','7','9' },
+            });
+            
+            
+            
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -129,6 +145,73 @@ namespace csharp
             }
             
             return result.ToArray();
+        }
+        
+        public bool IsValidSudoku(char[][] board)
+        {
+            // validate rows
+            for (var i = 0; i < board.Length; i++)
+            {
+                var currentRowWithoutDots = board[i].Where(x => x != '.');
+
+                var areUnique = currentRowWithoutDots.Distinct().Count() == currentRowWithoutDots.Count();
+                var areValidDigits = currentRowWithoutDots.All(x => char.IsDigit(x) && x != '0');
+
+                if (!areUnique || !areValidDigits)
+                    return false;
+            }
+            
+            // validate columns
+            for (var i = 0; i < board.Length; i++)
+            {
+                var currentColWithoutDots = board.Select(x => x.ElementAt(i)).Where(x => x != '.');
+                
+                var areUnique = currentColWithoutDots.Distinct().Count() == currentColWithoutDots.Count();
+                var areValidDigits = currentColWithoutDots.All(x => char.IsDigit(x) && x != '0');
+
+                if (!areUnique || !areValidDigits)
+                    return false;
+            }
+            
+            // validate 3x3s
+            for (int i = 0; i < 9; i++)
+            {
+                var currentRows = i switch
+                {
+                    var x when x >= 0 && x < 3 => new[] {0, 1, 2},
+                    var x when x >= 3 && x < 6 => new[] {3, 4, 5},
+                    _ => new[] {6, 7, 8}
+                };
+                
+                var currentCols = i switch
+                {
+                    var x when new[] {0, 3, 6}.Contains(x) => new[] {0, 1, 2},
+                    var x when new[] {1, 4, 7 }.Contains(x) => new[] {3, 4, 5},
+                    _ => new[] {6, 7, 8}
+                };
+                
+                var table = new List<char>();
+                foreach (var row in currentRows)
+                {
+                    foreach (var column in currentCols)
+                    {
+                        var entry = board[row][column];
+                        if(entry != '.')
+                            table.Add(entry);
+                    }
+                }
+                
+                var areUnique = table.Distinct().Count() == table.Count();
+                if (!areUnique)
+                    return false;
+            }
+
+            return true;
+        }
+        
+        public int LongestConsecutive(int[] nums)
+        {
+
         }
     }
 }
