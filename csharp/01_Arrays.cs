@@ -27,9 +27,9 @@ namespace csharp
                 new[] { '.','.','.','4','1','9','.','.','5' },
                 new[] { '.','.','.','.','8','.','.','7','9' },
             });
-            
-            
-            
+
+            LongestConsecutive(new[] {100, 4, 200, 1, 3, 2}); // 4
+            LongestConsecutive(new[] { 0,3,7,2,5,8,4,6,0,1 }); // 9
         }
         
         // Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
@@ -211,7 +211,20 @@ namespace csharp
         
         public int LongestConsecutive(int[] nums)
         {
+            if(nums.Length == 0) return 0;
+            
+            Array.Sort(nums);
 
+            var globalMax = 0;
+            var localMax = 0;
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                localMax = nums[i] - nums[i - 1] == 1 ? localMax + 1 : 0;
+                globalMax = Math.Max(globalMax, localMax);
+            }
+
+            return globalMax++;
         }
     }
 }
