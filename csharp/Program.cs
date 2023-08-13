@@ -8,3 +8,6 @@ misc.ExecuteAll();
 
 var arrays = new Arrays();
 arrays.ExecuteAll();
+
+var twoPointers = new TwoPointers();
+twoPointers.ExecuteAll();
