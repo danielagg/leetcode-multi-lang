@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace csharp
@@ -9,6 +10,7 @@ namespace csharp
         {
             IsPalindrome("A man, a plan, a canal: Panama");
             TwoSum(new[] {2, 7, 11, 15}, 9);
+            ThreeSum(new[] {-1, 0, 1, 2, -1, -4});
         }
         
         private bool IsPalindrome(string s)
@@ -41,6 +43,41 @@ namespace csharp
             }
 
             throw new Exception();
+        }
+        
+        public IList<IList<int>> ThreeSum(int[] nums)
+        {
+            Array.Sort(nums);
+
+            var result = new List<IList<int>>();
+
+            for (int i = 0; i < nums.Length - 2; i++)
+            {
+                var leftIndex = i + 1;
+                var rightIndex = nums.Length - 1;
+                
+                while (leftIndex < rightIndex)
+                {
+                    var curr = nums[i];
+                    var left = nums[leftIndex];
+                    var right = nums[rightIndex];
+
+                    var sum = curr + left + right;
+                    if (sum == 0)
+                    {
+                        // add to result
+                        result.Add(new[] { curr, left, right });
+                        break;
+                    }
+
+                    if (sum > 0)
+                        rightIndex--;
+                    else
+                        leftIndex++;
+                }
+            }
+
+            return result;
         }
     }
 }
