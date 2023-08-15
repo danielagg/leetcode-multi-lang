@@ -10,7 +10,7 @@ namespace csharp
         {
             IsPalindrome("A man, a plan, a canal: Panama");
             TwoSum(new[] {2, 7, 11, 15}, 9);
-            ThreeSum(new[] {-1, 0, 1, 2, -1, -4});
+            ThreeSum(new[] {-2,0,1,1,2});
         }
         
         private bool IsPalindrome(string s)
@@ -65,19 +65,25 @@ namespace csharp
                     var sum = curr + left + right;
                     if (sum == 0)
                     {
-                        // add to result
+                        // add to result, try again in case we have other combinations
                         result.Add(new[] { curr, left, right });
-                        break;
-                    }
 
-                    if (sum > 0)
+                        leftIndex++;
+                        rightIndex--;
+                    }
+                    else if (sum > 0)
                         rightIndex--;
                     else
                         leftIndex++;
                 }
             }
 
-            return result;
+            return result.Aggregate(new List<IList<int>>(), (res, curr) =>
+            {
+                if (!res.Any(x => x.SequenceEqual(curr)))
+                    res.Add(curr);
+                return res;
+            });
         }
     }
 }
