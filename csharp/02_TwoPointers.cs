@@ -11,6 +11,7 @@ namespace csharp
             IsPalindrome("A man, a plan, a canal: Panama");
             TwoSum(new[] {2, 7, 11, 15}, 9);
             ThreeSum(new[] {-2,0,1,1,2});
+            // CharacterReplacement("AABABBA", 1);
         }
         
         private bool IsPalindrome(string s)
@@ -85,5 +86,10 @@ namespace csharp
                 return res;
             });
         }
+        
+        // public int CharacterReplacement(string s, int k)
+        // {
+        //     // todo
+        // }
     }
 }

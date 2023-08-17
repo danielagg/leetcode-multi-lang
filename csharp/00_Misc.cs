@@ -17,10 +17,10 @@ namespace csharp
         {
             var result = Enumerable.Range(1, n).Select(i => i switch
             {
-                var x when x % 3 == 0 && x % 5 == 0 => "FizzBuzz",
-                var x when x % 3 == 0 => "Fizz",
-                var x when x % 5 == 0 => "Buzz",
-                var x => x.ToString()
+                int when i % 3 == 0 && i % 5 == 0 => "FizzBuzz",
+                int when i % 3 == 0 => "Fizz",
+                int when i % 5 == 0 => "Buzz",
+                int => i.ToString()
             });
 
             // foreach (var r in result)
