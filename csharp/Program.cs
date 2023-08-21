@@ -11,3 +11,6 @@ arrays.ExecuteAll();
 
 var twoPointers = new TwoPointers();
 twoPointers.ExecuteAll();
+
+var binarySearch = new BinarySearch();
+binarySearch.ExecuteAll();
