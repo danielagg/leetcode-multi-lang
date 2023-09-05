@@ -14,3 +14,6 @@ twoPointers.ExecuteAll();
 
 var binarySearch = new BinarySearch();
 binarySearch.ExecuteAll();
+
+var trees = new Trees();
+trees.ExecuteAll();
