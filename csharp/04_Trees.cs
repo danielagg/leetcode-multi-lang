@@ -32,4 +32,11 @@ public class Trees
 
         return root;
     }
+    
+    public int MaxDepthDfsRecursive(TreeNode root)
+    {
+        if (root == null) return 0;
+
+        return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
+    }
 }
